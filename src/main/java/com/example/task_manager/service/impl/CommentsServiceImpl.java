@@ -47,6 +47,7 @@ public class CommentsServiceImpl implements CommentsService {
         Comments comment = new Comments();
         comment.setTask(findTaskById(request.getTaskId()));
         comment.setUser(findUserById(request.getUserId()));
+        comment.setCompanyId(request.getCompanyId());
         comment.setContent(request.getContent());
         comment.setCreatedAt(LocalDateTime.now());
 
@@ -70,6 +71,7 @@ public class CommentsServiceImpl implements CommentsService {
 
         comment.setTask(findTaskById(commentsDTO.getTaskId()));
         comment.setUser(findUserById(commentsDTO.getUserId()));
+        comment.setCompanyId(commentsDTO.getCompanyId());
         comment.setContent(commentsDTO.getContent());
         comment.setCreatedAt(LocalDateTime.now());
 
@@ -126,6 +128,7 @@ public class CommentsServiceImpl implements CommentsService {
                 comment.getId(),
                 comment.getTask() != null ? comment.getTask().getId() : null,
                 comment.getUser() != null ? comment.getUser().getId() : null,
+                comment.getCompanyId(),
                 comment.getContent(),
                 comment.getCreatedAt()
         );

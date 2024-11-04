@@ -3,7 +3,6 @@ package com.example.task_manager.service;
 import com.example.task_manager.dto.ProjectDTO;
 import com.example.task_manager.enums.ProjectStatus;
 import com.example.task_manager.exception.CustomException;
-import com.example.task_manager.response.MasterDataResponse;
 import com.example.task_manager.response.PaginatedResponse;
 import com.example.task_manager.response.ProjectResponse;
 import org.springframework.http.ResponseEntity;

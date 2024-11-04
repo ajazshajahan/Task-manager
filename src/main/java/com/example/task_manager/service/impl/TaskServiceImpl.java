@@ -6,6 +6,7 @@ import com.example.task_manager.entity.Task;
 import com.example.task_manager.entity.User;
 import com.example.task_manager.enums.TaskStatus;
 import com.example.task_manager.exception.CustomException;
+import com.example.task_manager.repository.CommentsRepository;
 import com.example.task_manager.repository.ProjectRepository;
 import com.example.task_manager.repository.TaskRepository;
 import com.example.task_manager.repository.UserRepository;
@@ -32,11 +33,13 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final CommentsRepository commentsRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository, ProjectRepository projectRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository, ProjectRepository projectRepository, CommentsRepository commentsRepository) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
         this.projectRepository = projectRepository;
+        this.commentsRepository = commentsRepository;
     }
 
     @Override
@@ -55,8 +58,14 @@ public class TaskServiceImpl implements TaskService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Task with ID " + id + " not found.");
         }
+        if (commentsRepository.existsByTaskId(id)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Task cannot be deleted because it has associated comments.");
+        }
+
+
         taskRepository.deleteById(id);
-        return ResponseEntity.ok("Task deleted successfully");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Override
@@ -65,6 +74,7 @@ public class TaskServiceImpl implements TaskService {
                                                    LocalDateTime startDate, LocalDateTime endDate,
                                                    int page, int size, String sortBy, String sortOrder) throws CustomException {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortOrder), sortBy));
+
 
         if (id != null) {
             return getTaskById(id, companyId);

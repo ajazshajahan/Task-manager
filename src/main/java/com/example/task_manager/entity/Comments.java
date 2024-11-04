@@ -21,7 +21,7 @@ public class Comments extends BaseEntity {
     private Task task;
 
     @ManyToOne
-    @JoinColumn(name = "taskId",nullable = false)
+    @JoinColumn(name = "userId",nullable = false)
     private User user;
 
     @Column(nullable = false)

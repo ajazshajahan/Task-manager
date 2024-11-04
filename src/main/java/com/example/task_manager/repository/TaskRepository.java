@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task,Long> {
 
+    boolean existsByProjectId(Long projectId);
 
     Optional<Task> findByIdAndCompanyId(Long id, Long companyId);
 

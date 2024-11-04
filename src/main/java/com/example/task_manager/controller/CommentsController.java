@@ -1,6 +1,7 @@
 package com.example.task_manager.controller;
 
 import com.example.task_manager.dto.CommentsDTO;
+import com.example.task_manager.exception.CustomException;
 import com.example.task_manager.response.*;
 import com.example.task_manager.service.CommentsService;
 
@@ -30,8 +31,8 @@ public class CommentsController {
         this.commentsService = commentsService;
     }
 
-    @PostMapping("/save/comment")
-    public ResponseEntity<AppResponse<Void>> commentsSaving(@RequestBody CommentsDTO request) {
+    @PostMapping("/create/comment")
+    public ResponseEntity<AppResponse<Void>> commentsSaving(@RequestBody CommentsDTO request) throws CustomException {
 
         commentsService.saveComments(request);
 
@@ -42,6 +43,7 @@ public class CommentsController {
 
     }
 
+    @GetMapping("get/comment")
     public ResponseEntity<AppResponse<PaginatedResponse<CommentsResponse>>> getComments
             (@RequestParam(name = "id",required = false) Long id,
              @RequestParam(name = "taskId",required = false) Long taskId,

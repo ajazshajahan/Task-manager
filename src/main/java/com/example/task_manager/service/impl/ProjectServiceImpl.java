@@ -6,6 +6,7 @@ import com.example.task_manager.entity.Project;
 import com.example.task_manager.enums.ProjectStatus;
 import com.example.task_manager.exception.CustomException;
 import com.example.task_manager.repository.ProjectRepository;
+import com.example.task_manager.repository.TaskRepository;
 import com.example.task_manager.response.PaginatedResponse;
 import com.example.task_manager.response.ProjectResponse;
 import com.example.task_manager.service.ProjectService;
@@ -30,11 +31,13 @@ import static com.example.task_manager.context.ContextHolder.getUserContextInfo;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final TaskRepository taskRepository;
     private final UserContextInfo context = getUserContextInfo();
 
     @Autowired
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
@@ -137,7 +140,14 @@ public class ProjectServiceImpl implements ProjectService {
                     .body("Project with ID " + id + " not found.");
         }
 
+        if (taskRepository.existsByProjectId(id)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Project cannot be deleted because it has associated tasks.");
+        }
+
+
         projectRepository.deleteById(id);
-        return ResponseEntity.ok("Project deleted successfully");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }
