@@ -26,6 +26,10 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "projectId",nullable = false)
     private Project project;
 
+    @OneToMany
+    @JoinColumn(name = "commentsId",nullable = false)
+    private Comments comments;
+
     @Column( nullable = false)
     private String title;;
 

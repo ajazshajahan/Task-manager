@@ -18,5 +18,5 @@ public interface TaskService {
    PaginatedResponse<TaskResponse> getTask(Long id, Long companyId, String title, LocalDateTime updatedAt, TaskStatus status,
                                           LocalDateTime startDate, LocalDateTime endDate, int page, int size, String sortBy, String sortOrder) throws CustomException;
 
-    TaskResponse updateTask(TaskDTO taskDTO);
+    TaskResponse updateTask(TaskDTO taskDTO) throws CustomException;
 }

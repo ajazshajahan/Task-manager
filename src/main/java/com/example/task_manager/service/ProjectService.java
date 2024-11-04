@@ -16,7 +16,7 @@ public interface ProjectService {
 
   PaginatedResponse<ProjectResponse> getProject(Long id, Long companyId, String name, LocalDateTime updatedAt, ProjectStatus status, LocalDateTime startDate, LocalDateTime endDate, int page, int size, String sortBy, String sortOrder) throws CustomException;
 
-    ProjectResponse updateProject(ProjectDTO projectDTO);
+    ProjectResponse updateProject(ProjectDTO projectDTO) throws CustomException;
 
     ResponseEntity<String> deleteProject(Long id);
 }
