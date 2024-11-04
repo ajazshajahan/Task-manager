@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,8 +28,8 @@ public class Task extends BaseEntity {
     private Project project;
 
     @OneToMany
-    @JoinColumn(name = "commentsId",nullable = false)
-    private Comments comments;
+    @JoinColumn(name = "commentsId")
+    private List<Comments> comments;
 
     @Column( nullable = false)
     private String title;;

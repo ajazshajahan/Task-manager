@@ -20,6 +20,8 @@ public class CommentsResponse {
 
     private Long userId;
 
+    private Long companyId;
+
     private String content;
 
     private LocalDateTime createdAt;
