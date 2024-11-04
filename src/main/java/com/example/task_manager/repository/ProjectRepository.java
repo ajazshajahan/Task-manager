@@ -1,6 +1,5 @@
 package com.example.task_manager.repository;
 
-import com.example.task_manager.entity.MasterData;
 import com.example.task_manager.entity.Project;
 import com.example.task_manager.enums.ProjectStatus;
 import org.springframework.data.domain.Page;

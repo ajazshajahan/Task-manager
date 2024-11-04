@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
+    boolean existsByTaskId(Long taskId);
 
     Page<Comments> findByTaskId(Long taskId, Pageable pageable);
 

@@ -34,7 +34,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping("/save/task")
+    @PostMapping("/create/task")
     public ResponseEntity<AppResponse<Void>> saveTask(@RequestBody TaskDTO request){
 
         taskService.createTask(request);

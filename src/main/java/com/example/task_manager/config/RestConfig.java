@@ -54,12 +54,12 @@ public class RestConfig {
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
+                        .ignoringRequestMatchers("/auth/**")
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .oauth2ResourceServer(oauth2 -> oauth2

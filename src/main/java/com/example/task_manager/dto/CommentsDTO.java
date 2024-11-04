@@ -15,6 +15,8 @@ public class CommentsDTO {
 
     private Long userId;
 
+    private Long companyId;
+
     private String content;
 
     private LocalDateTime createdAt;

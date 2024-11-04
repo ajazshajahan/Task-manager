@@ -2,6 +2,7 @@ package com.example.task_manager.controller;
 
 import com.example.task_manager.dto.LoginDTO;
 import com.example.task_manager.dto.UserDTO;
+import com.example.task_manager.exception.CustomException;
 import com.example.task_manager.response.AppResponse;
 import com.example.task_manager.response.LoginResponse;
 import com.example.task_manager.service.AuthService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/auth/user")
 public class UserController {
 
     private final AuthService authService;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AppResponse<Void>> UserSignUp(@RequestBody UserDTO request) {
+    public ResponseEntity<AppResponse<Void>> UserSignUp(@RequestBody UserDTO request) throws CustomException {
         authService.register(request);
         AppResponse<Void> appResponse = new AppResponse<>(null, "SUCCESS", "Registration successful");
 
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AppResponse<LoginResponse>> login(@RequestBody LoginDTO loginRequest) {
+    public ResponseEntity<AppResponse<LoginResponse>> login(@RequestBody LoginDTO loginRequest) throws CustomException {
         AppResponse<LoginResponse> appResponse = new AppResponse<>();
 
         try {
